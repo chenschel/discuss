@@ -1,0 +1,4 @@
+<div class="jumbotron">
+  <h2>New Topic view</h2>
+  <p class="lead">This is my first phoenix view</p>
+</div>
