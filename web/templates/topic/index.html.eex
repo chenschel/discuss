@@ -5,10 +5,10 @@
     <li class="collection-item">
         <div>
             <%= topic.title %>
-            <%= link(to: topic_path(@conn, :delete, topic.id), method: :delete, data: [confirm: "Really?"], class: "secondary-content") do %>
+            <%= link(to: topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Really?"], class: "secondary-content") do %>
                 <i class="material-icons">delete</i>
             <% end %>
-            <%= link(to: topic_path(@conn, :edit, topic.id), class: "secondary-content") do %>
+            <%= link(to: topic_path(@conn, :edit, topic), class: "secondary-content") do %>
                 <i class="material-icons">edit</i>
             <% end %>
         </div>
