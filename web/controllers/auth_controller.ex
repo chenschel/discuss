@@ -13,7 +13,7 @@ defmodule Discuss.AuthController do
 
   def signout(conn, _params) do
     conn
-    |> put_session(:user_id, nil)
+    |> configure_session(drop: true) # put_session(:user_id, nil) will work, but it maby does not delete all collected user data so the whole session will be deleted here
     |> put_flash(:info, "Successfully signed out")
     |> redirect(to: topic_path(conn, :index))
   end
