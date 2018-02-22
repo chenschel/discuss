@@ -5,6 +5,8 @@ defmodule Discuss.TopicController do
 
   plug(Discuss.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete])
 
+  plug(:check_topic_owner when action in [:update, :edit, :delete])
+
   def index(conn, _params) do
     topics = Repo.all(Topic)
 
@@ -66,5 +68,19 @@ defmodule Discuss.TopicController do
     conn
     |> put_flash(:info, "Topic has been deleted")
     |> redirect(to: topic_path(conn, :index))
+  end
+
+  # _params are not the params we reveive from a form. so we have to pattern match it from the conn
+  def check_topic_owner(conn, _params) do
+    %{params: %{"id" => topic_id}} = conn
+
+    if Repo.get(Topic, topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You are not allowed to do that!")
+      |> redirect(to: topic_path(conn, :index))
+      |> halt()
+    end
   end
 end
