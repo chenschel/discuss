@@ -4,7 +4,7 @@
 <%= for topic <- @topics do %>
     <li class="collection-item">
         <div>
-            <%= topic.title %>
+            <%= link(topic.title, to: topic_path(@conn, :show, topic)) %>
 
             <%= if @conn.assigns.user != nil && @conn.assigns.user.id == topic.user_id do %>
                 <%= link(to: topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Really?"], class: "secondary-content") do %>
